@@ -1,0 +1,46 @@
+<%layout ('layout/boilerplate')%>
+<h1 class="text-center">Edit Restaurant </h1>
+<div class="row">
+    <div class="col-6 offset-3">
+        <form action="/restaurants/<%=single_restaurant._id%>?_method=PUT" method="post" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label class="form-label" for="Name">Name</label>
+                <input class="form-control" type="text" id="Name" placeholder="Name" name="restaurant[Name]"
+                    value="<%=single_restaurant.Name%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="Location">Location</label>
+                <input class="form-control" type="text" id="Location" placeholder="Location" name="restaurant[Location]"
+                    value="<%=single_restaurant.Location%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="MostPopular Item">MostPopularItem</label>
+                <input class="form-control" type="text" id="MostPopular Item" placeholder="Item"
+                    name="restaurant[MostPopular]" value="<%=single_restaurant.MostPopular%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="EUID">EUID</label>
+                <input class="form-control" type="text" id="EUID" placeholder="Item" name="restaurant[EUID]"
+                    value="<%=single_restaurant.EUID%>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-info">Edit Restaurant</button>
+            </div>
+            <footer>
+                <a href="/restaurants">Cancel</a>
+            </footer>
+        </form>
+    </div>
+</div>

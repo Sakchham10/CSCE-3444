@@ -1,0 +1,24 @@
+<%layout ('layout/boilerplate')%>
+<div class="card" style="width: 18rem;">
+    <div class="card-body textalign-center">
+        <h1 class="card-title">
+            <%= single_restaurant.Name %>
+        </h1>
+        <p class="card-text textalign-center">
+            <%= single_restaurant.MostPopular %>
+        </p>
+        <p class="card-text textalign-center">
+            <%= single_restaurant.Location %>
+        </p>
+        <p class="card-text textalign-center"> Submitted by:
+            <%= single_restaurant.Author.username %>
+        </p>
+        <% if(currentUser && single_restaurant.Author.equals(currentUser._id)) {%> 
+        <a href="/restaurants" class="btn btn-primary m-5">All restaurants</a>
+        <a href="/restaurants/<%=single_restaurant._id%>/edit" class="btn btn-primary mb-2">Edit</a>
+        <form action="/restaurants/<%=single_restaurant._id%>?_method=Delete" method="post">
+            <button class="btn btn-danger">Delete</button>
+        </form>
+        <% } %> 
+    </div>
+</div>
