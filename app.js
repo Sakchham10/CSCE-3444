@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production"){
+    require('dotenv').config()
+}
+
 const express = require('express');
 const path = require('path');
 const session = require('express-session')
@@ -9,10 +13,13 @@ const flash = require('connect-flash')
 const passport = require('passport');
 const passportLocal = require('passport-local')
 const User = require('./models/users')
+const reivew = require('./models/reviews')
 
 
 const restaurantRoutes = require("./routes/restaurants")
 const userRoutes = require("./routes/auth")
+const reviewRoutes = require("./routes/reviews");
+const reviews = require('./models/reviews');
 
 mongoose.connect('mongodb://localhost:27017/csce-project',{
     useNewUrlParser: true,
@@ -64,6 +71,7 @@ app.use(express.static("public"))
 
 app.use("/restaurants", restaurantRoutes)
 app.use("/", userRoutes)
+app.use("/restaurants/:id/reviews",reviewRoutes)
 
 app.get('/',(req,res)=>{
     res.render('home')

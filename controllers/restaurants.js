@@ -11,6 +11,7 @@ module.exports.newForm = (req,res)=>{
 
 module.exports.create = (async (req, res) => {
     const new_restaurant = new restaurant(req.body.restaurant)
+    new_restaurant.Images = req.files.map(f => ({ url: f.path, filename: f.filename }))
     new_restaurant.Author = req.user._id
     await new_restaurant.save();
     req.flash('success', 'Successfully made a new restaurant')
@@ -19,7 +20,7 @@ module.exports.create = (async (req, res) => {
 
 module.exports.show = async (req, res) => { 
     const { id } = req.params
-    const single_restaurant = await (await restaurant.findById(id)).populate('Author')
+    const single_restaurant = await restaurant.findById(id).populate('Author').populate('reviews')
     if (!single_restaurant) {
         req.flash('error', 'The restaurant does not exist anymore')
         return res.redirect('/restaurants')

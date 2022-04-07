@@ -2,7 +2,7 @@
 <h1 class="text-center">New Restaurant</h1>
 <div class="row">
     <div class="col-6 offset-3">
-        <form action="/restaurants" method="post" class="needs-validation" novalidate>
+        <form action="/restaurants" method="post" class="needs-validation" novalidate enctype="multipart/form-data">
             <div>
                 <label class="form-label" for="Name">Full Name</label>
                 <input class="form-control" type="text" id="Name" placeholder="Name" name="restaurant[Name]"
@@ -19,6 +19,7 @@
                     Looks good!
                 </div>
             </div>
+            <input type="file" name="image" id="image" multiple>
             <div class="mb-3">
                 <label class="form-label" for="MostPopular Item">MostPopularItem</label>
                 <input class="form-control" type="text" id="MostPopular Item" placeholder="Item"
