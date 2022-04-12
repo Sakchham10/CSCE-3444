@@ -24,7 +24,6 @@ module.exports.isAuthor = async(req,res,next)=>{
 
 module.exports.validateRestaurant = (req, res, next) => {
     const { error } = restaurantValidations.validate(req.body)
-    console.log(error)
     if (error) {
         const msg = error.details.map(el => el.message).join(',')
         throw new ExpressError(msg, 400)
@@ -36,7 +35,6 @@ module.exports.validateRestaurant = (req, res, next) => {
 
 module.exports.isReviewAuthor = async(req,res,next)=>{
     const { id, reviewID } = req.params;
-    console.log(id)
     const review = await Review.findById(reviewID)
     if(!review.author.equals(req.user._id)){
         req.flash('error','You do not have permission to do that!')

@@ -16,7 +16,7 @@ router.get('/new', isLoggedIn, restaurant_controllers.newForm)
 
 router.route('/:id')
     .get(isLoggedIn,catchAsync(restaurant_controllers.show))
-    .put(isLoggedIn, isAuthor,  validateRestaurant, catchAsync(restaurant_controllers.update))
+    .put(isLoggedIn, isAuthor,  upload.array('image'), validateRestaurant, catchAsync(restaurant_controllers.update))
     .delete(isLoggedIn, catchAsync(restaurant_controllers.delete))
     
 

@@ -1,3 +1,4 @@
+const { array } = require('joi')
 const Joi = require('joi')
 
 module.exports.restaurantValidations = Joi.object({
@@ -6,7 +7,8 @@ module.exports.restaurantValidations = Joi.object({
         Location: Joi.string().required(),
         MostPopular: Joi.string().required(),
         EUID: Joi.number().required().min(0)
-    }).required()
+    }).required(),
+    deleteImages: Joi.array()
 })
 
 

@@ -14,7 +14,6 @@ module.exports.createReview = async (req, res) => {
 
 module.exports.deleteReview = async (req, res) => {
     const { id, reviewID } = req.params;
-    console.log(id)
     await restaurant.findByIdAndUpdate(id, { $pull: { reviews: reviewID } });
     await Review.findByIdAndDelete(reviewID);
     req.flash('success', 'Successfully deleted review')
