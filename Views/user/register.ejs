@@ -1,8 +1,14 @@
 <%layout ('layout/boilerplate')%>
-    <h1 class="text-center">Register</h1>
+<link rel="stylesheet" href="/stylesheets/forms.css">
+<link rel="stylesheet" href="/stylesheets/buttons.css">
+<div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="row">
-        <div class="col-6 offset-3">
-            <form action="/register" method="post" class="needs-validation" novalidate>
+        <div class="card shadow" id="card_b">
+            <div class="card-body">
+                <h5 class="card-title">Register</h5>
+                <div class="row">
+                    <div class="text-black" id="main">
+                    <form action="/register" method="post" class="needs-validation" novalidate>
                 <div class="mb-3">
                     <label class="form-label" for="username">Username</label>
                     <input class="form-control" type="text" id="username" placeholder="Username"
@@ -27,8 +33,12 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <button class="btn btn-success">Register</button>
+                    <button class="btn" id="submit">Register</button>
                 </div>
             </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>

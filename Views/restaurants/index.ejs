@@ -1,30 +1,35 @@
 <%layout ('layout/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/buttons.css">
 <div id="map" style="width: 100%; height: 500px;"></div>
-<h1>All Restaurants</h1>
+<h1 class="text-center mt-3" id="heading">All Restaurants</h1>
+
 <% for (let restaurant of allRestaurants) {%>
-    <div class="card mb-3">
+    <div class="d-flex justify-content-center" >
+
+    
+    <div class="card mb-3 d-flex " style="width: 38%" id="cards">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <% if (restaurant.Images.length){ %>
-                    <img src="<%=restaurant.Images[0].url %> " alt="" class="img-fluid">
+                    <img src="<%=restaurant.Images[0].url %> " alt="" class="img-fluid" id="image">
                 <% }  else{ %>  
-                    <img src="https://res.cloudinary.com/sakchham/image/upload/v1649693766/CSCE-3444/fabrizio-magoni-boaDpmC-_Xo-unsplash_cuyrvo.jpg" alt="" class="img-fluid">
+                    <img src="https://res.cloudinary.com/sakchham/image/upload/v1649693766/CSCE-3444/fabrizio-magoni-boaDpmC-_Xo-unsplash_cuyrvo.jpg" alt="" class="img-fluid" id="image">
                 <% } %> 
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6 text-center">
                 <div class="card-body">
-                    <h5 class="card-title">
+                    <h5 class="card-title ">
                         <%=restaurant.Name%>
                     </h5>
                     <p class="card-text">
                         <%= restaurant.Location %> 
                     </p>
                 </div>
-                <a class="btn btn-primary" href="/restaurants/<%=restaurant._id%>">View <%=restaurant.Name%></a>
+                <a class="btn" id="views" href="/restaurants/<%=restaurant._id%>"><span class="iconify" data-icon="carbon:add-filled" style="color: rgba(255, 255, 255, 0.5);"></span> Details</a>    
             </div>
         </div>
-        </div>
-    </div>    
+    </div>
+    </div>
 <%}%>
 <script>
     const mapToken = '<%- process.env.MAPBOX_TOKEN%>'

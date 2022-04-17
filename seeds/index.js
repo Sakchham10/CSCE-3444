@@ -1,35 +1,45 @@
-const mongoose = require('mongoose')
-const res = require('express/lib/response');
-const Restaurant = require('../models/restaurant')
+const mongoose = require('mongoose');
+const cities = require('./cities');
+const {food, last, descriptors } = require('./seedHelpers');
+const Restaurant = require('../models/restaurant');
 
 mongoose.connect('mongodb://localhost:27017/csce-project', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-})
+});
 
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"))
+
+db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
-    console.log("Database Connected")
-})
+    console.log("Database connected");
+});
 
-restaurants = ['BurgerKing', 'McDonalds', 'Chick-fil-A', 'TacoBell', 'Whataburger', 'Mamas Fish House','Halls Chophouse']
-foodItems = ['Chicken Sandwich','French Fries','Fish Fillet','Chicken Tacos','CheeseBurger','IceCream','BurritoBowl','Fried Chicken','Steak']
-const seedDB = async()=>{
+const sample = array => array[Math.floor(Math.random() * array.length)];
+
+
+const seedDB = async () => {
     await Restaurant.deleteMany({});
-    for (let i = 0; i < 7; i++) {
-        val = Math.floor(Math.random() * 9)
-        id = Math.floor(Math.random()*100 +3)
-        const single_restaurant = new Restaurant({ Name: restaurants[i], Location: 'MainCampus', MostPopular: foodItems[val], EUID: id, Author: '623c92ce7b88fb0a9980eb24'});
-        await single_restaurant.save();
+    for (let i = 0; i < 33; i++) {
+        const random1000 = Math.floor(Math.random() * 1000);
+        const camp = new Restaurant({
+            //YOUR USER ID
+            Author: '6258c24d9790a82c4104b336',
+            Location: `${cities[random1000].city}, ${cities[random1000].state}`,
+            Name: `${sample(descriptors)} ${sample(last)}`,
+            MostPopular: `${sample(food)}`,
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude,
+                ]
+            }
+        })
+        await camp.save();
     }
-    
 }
 
-const addRestaurant = async()=>{
-    await Restaurant.updateMany()
-}
-
-seedDB().then(()=>
-    mongoose.connection.close()
-)
+seedDB().then(() => {
+    mongoose.connection.close();
+})

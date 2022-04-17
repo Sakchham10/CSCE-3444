@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const Review = require('./reviews')
+const opts = {toJSON: {virtuals: true}};
 
 const RestaurantSchema = new Schema({
     Name:{
@@ -21,10 +22,6 @@ const RestaurantSchema = new Schema({
         type: String,
         required : true
     } ,
-    EUID: {
-        type: Number,
-        required: true
-    },
     Author: {
         type: Schema.Types.ObjectId,
         ref:'User'
@@ -48,7 +45,11 @@ const RestaurantSchema = new Schema({
         }
     ]
 
-});
+},opts);
+
+RestaurantSchema.virtual('properties.popUpMarkup').get(function(){
+    return `<strong><a href = "/restaurants/${this._id}">${this.Name}</a></strong>`
+})
 
 RestaurantSchema.post('findOneAndDelete',async function(doc){
     if(doc){

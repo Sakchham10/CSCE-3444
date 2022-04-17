@@ -1,7 +1,7 @@
 mapboxgl.accessToken = mapToken;
     const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/light-v10',
+    style: 'mapbox://styles/mapbox/dark-v10',
     center: [-103.5917, 40.6699],
     zoom: 3
     });
@@ -101,10 +101,8 @@ mapboxgl.accessToken = mapToken;
     // the location of the feature, with
     // description HTML from its properties.
     map.on('click', 'unclustered-point', (e) => {
+    const link = e.features[0].properties.popUpMarkup;
     const coordinates = e.features[0].geometry.coordinates.slice();
-    const mag = e.features[0].properties.mag;
-    const tsunami =
-    e.features[0].properties.tsunami === 1 ? 'yes' : 'no';
     
     // Ensure that if the map is zoomed out such that
     // multiple copies of the feature are visible, the
@@ -116,7 +114,7 @@ mapboxgl.accessToken = mapToken;
     new mapboxgl.Popup()
     .setLngLat(coordinates)
     .setHTML(
-    `magnitude: ${mag}<br>Was there a tsunami?: ${tsunami}`
+        link
     )
     .addTo(map);
     });
